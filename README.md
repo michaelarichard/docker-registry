@@ -7,17 +7,17 @@ See:
 $ kubectl apply --recursive --filename ./manifests
 
 $ kubectl run -ti alpine --image giantswarm/tiny-tools sh
-  curl http://registry.registry.svc:5000
+  curl http://registry.default.svc:5000
 
 $ minikube ssh
   curl http://localhost:5000
 ```
 
 ```bash
-$ REGISTRY_POD_NAME=$(kubectl get pods --namespace registry -l app=registry,component=main \
+REGISTRY_POD_NAME=$(kubectl get pods -l app=registry,component=main \
   -o template --template '{{(index .items 0).metadata.name}}')
 
-$ kubectl --namespace registry port-forward $REGISTRY_POD_NAME 5000:5000
+kubectl port-forward $REGISTRY_POD_NAME 5000:5000
 ```
 ```bash
   docker pull alpine

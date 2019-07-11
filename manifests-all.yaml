@@ -1,15 +1,15 @@
 # Derived from ./manifests
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: registry
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: registry
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: registry
-  namespace: registry
+  # namespace: registry
   labels:
     app: registry
     component: main
@@ -55,7 +55,7 @@ apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: registry-proxy
-  namespace: registry
+  # namespace: registry
   labels:
     app: registry
     component: proxy
@@ -75,7 +75,8 @@ spec:
             memory: 50Mi
         env:
         - name: REGISTRY_HOST
-          value: registry.registry.svc
+          value: docker-registry.default.svc
+          # value: registry.registry.svc
         - name: REGISTRY_PORT
           value: "5000"
         - name: FORWARD_PORT
@@ -88,8 +89,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: registry
-  namespace: registry
+  name: docker-registry
+  # namespace: registry
   labels:
     app: registry
     component: main
