@@ -5,7 +5,7 @@
 # metadata:
 #   name: registry
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: registry
@@ -14,6 +14,10 @@ metadata:
     app: registry
     component: main
 spec:
+  selector:
+    matchLabels:
+      app: registry
+      component: main
   replicas: 1
   template:
     metadata:
@@ -24,7 +28,7 @@ spec:
       containers:
       - name: registry
         image: registry:2.5
-        imagePullPolicy: Always
+#        imagePullPolicy: Always
         resources:
           # keep request = limit to keep this container in guaranteed class
           limits:
